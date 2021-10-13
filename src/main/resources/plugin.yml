@@ -1,0 +1,27 @@
+name: Kaboom
+version: '${project.version}'
+main: me.powerbutton.kaboom.Kaboom
+api-version: 1.17
+authors: [ Power_Button ]
+description: Kaboom!
+commands:
+  kaboom:
+    description: Go BOOM!
+  weakboom:
+    description: a weak kaboom
+  gravity:
+    description: go down
+  lobby:
+    description: go to the lobby
+  bigkaboom:
+    description: huge kaboom
+  kaboomspecific:
+    description: specific kaboom
+  bigspecific:
+    description: deez
+  weakboomspecific:
+    description: deez
+  gravityspecific:
+    description: deez
+  boop:
+    description: deez
