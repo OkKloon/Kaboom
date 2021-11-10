@@ -18,7 +18,6 @@ public final class Kaboom extends JavaPlugin {
         Logger logger = this.getLogger();
         Bukkit.getLogger().info("Kaboom is starting up!");
         this.getCommand("kaboom").setExecutor(new KaboomCommand());
-        this.getCommand("weakboom").setExecutor(new Weakboom());
         this.getCommand("gravity").setExecutor(new Gravity());
         this.getCommand("bigkaboom").setExecutor(new Bigkaboom());
         Bukkit.getLogger().info("Kaboom has started up!");
