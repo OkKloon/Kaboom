@@ -11,29 +11,32 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 public class Gravity implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!command.getName().equalsIgnoreCase("gravity")) {
-            return false;
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+        if (command.getName().equalsIgnoreCase("gravity")) {
+        if (!sender.hasPermission("gravity.use")) {
+            sender.sendMessage(CommonStrings.NO_PERMISSIONS);
         } else {
-            if (!sender.hasPermission("gravity.use")) {
-                sender.sendMessage(ChatColor.RED + "[kaboom.] You do not have the permission to use this command!");
-            } else {
-                Iterator var5 = Bukkit.getOnlinePlayers().iterator();
+            if (args.length == 0) {
+                for (Player players :  Bukkit.getOnlinePlayers()) {
+                    players.setVelocity(new Vector(0, -100, 0));
+                    players.playSound(players.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1000, 1f);
+                    players.sendTitle(ChatColor.YELLOW + "" + ChatColor.BOLD + "GRAVITY", " ", 0, 60, 0);
+                }
+                } else {
 
-                while(var5.hasNext()) {
-                    Player players = (Player)var5.next();
-                    Player player = (Player)sender;
-                    Bukkit.getOnlinePlayers();
-                    if (command.getName().equalsIgnoreCase("gravity")) {
-                        players.setVelocity(new Vector(0, -500, 0));
-                    }
-                    players.setFallDistance(0.0F);
-                    players.sendMessage("§e§lGRAVITY GO NYOOOM!");
-                    players.playSound(players.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 99999.0F, 1.0F);
-                    players.sendTitle("§e§lGRAVITY", "", 0, 40, 0);
+                Player target = Bukkit.getPlayerExact(args[0]);
+                if (target != null) {
+                    target.setVelocity(new Vector(0, -100, 0));
+                    target.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "You have been pulled to the ground by " + sender.getName());
+                    target.playSound(target.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1000, 1f);
+                    target.sendTitle(ChatColor.YELLOW + "" + ChatColor.BOLD + "GRAVITY", "", 0, 60, 0);
+
+                } else {
+                    sender.sendMessage(CommonStrings.PLAYER_NOT_ONLINE);
                 }
             }
-            return true;
         }
-    }
+        }
+    return true;
+       }
 }

@@ -17,25 +17,32 @@ public class KaboomCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("kaboom")) {
             if (!sender.hasPermission("kaboom.use")) {
+
                 sender.sendMessage(ChatColor.RED + "§l[kaboom] You do not have the permission to use this command!");
-            } else {
-                Iterator var5 = Bukkit.getOnlinePlayers().iterator();
 
-                while(var5.hasNext()) {
-                    Player players = (Player)var5.next();
-                    Bukkit.getOnlinePlayers();
-                    if (command.getName().equalsIgnoreCase("kaboom")) {
-                        players.setVelocity(new Vector(0, 130, 0));
-                    }
 
-                    players.getWorld().strikeLightningEffect(players.getLocation());
-                    players.playSound(players.getLocation(), Sound.BLOCK_ANVIL_LAND, 99999.0F, 1.0F);
-                    players.sendMessage("§e§lKABOOM!");
-                    players.sendTitle("§e§lKABOOM", "", 0, 40, 0);
+            }  if (args.length == 0){
+              for   (Player players : Bukkit.getOnlinePlayers()) {
+                  players.getWorld().strikeLightningEffect(players.getLocation());
+                  players.sendMessage("§e§lKABOOM!");
+                  players.sendTitle("§e§lKABOOM", "", 0, 40, 0);
+                  players.setVelocity(new Vector(0, 10, 0));
+              }
+            }else {
+                Player target = Bukkit.getPlayerExact(args[0]);
+                if (target != null) {
+                    target.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "You have been kaboomed by " + sender.getName());
+                    target.setVelocity(new Vector(0, 10, 0));
+                    target.sendMessage("§e§lKABOOM!");
+                    target.sendTitle("§e§lKABOOM", "", 0, 40, 0);
+                    target.getWorld().strikeLightningEffect(target.getLocation());
+                } else {
+                    sender.sendMessage(CommonStrings.PLAYER_NOT_ONLINE);
+                }
                 }
             }
-        }
-
         return true;
+
     }
-}
+
+    }

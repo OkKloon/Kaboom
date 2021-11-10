@@ -10,25 +10,30 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 public class Weakboom implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
         if (command.getName().equalsIgnoreCase("weakboomspecific")) {
             if (!sender.hasPermission("kaboomspecific.use")) {
-                sender.sendMessage(ChatColor.RED + "§l[kaboom.] You do not have the permission to use this command!");
-            } else if (args.length > 0) {
-                Player target = Bukkit.getPlayerExact(args[0]);
-                if (target == null) {
-                    sender.sendMessage(ChatColor.RED + "This player does not exist or is not online!");
+           sender.sendMessage(CommonStrings.NO_PERMISSIONS);
+            } else {
+                if (args.length == 0) {
+                    for (Player players : Bukkit.getOnlinePlayers()) {
+                        players.setVelocity(new Vector(0, 50, 0));
+                        players.sendTitle(ChatColor.YELLOW + "" + ChatColor.BOLD + "WEAK", "", 0, 60, 0);
+                        players.playSound(players.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1000, 1f);
+                    }
                 } else {
-                    target.sendMessage(ChatColor.RED + sender.getName() + " §bsent you in the air!");
-                    target.setVelocity(new Vector(0, 130, 0));
-                    target.playSound(target.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 99999.0F, 1.0F);
-                    target.sendTitle(ChatColor.RED + sender.getName() + "§b wanted to say hi!", "(WITH A WEAKBOOM LMAO WHAT A SOFTIE)", 0, 80, 0);
+                    Player target = Bukkit.getPlayerExact(args[0]);
+                    if (target != null) {
+                        target.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "You have been weakboomed by " + sender.getName());
+                        target.setVelocity(new Vector(0, 50, 0));
+                        target.sendTitle(ChatColor.YELLOW + "" + ChatColor.BOLD + "WEAK", "", 0, 60, 0);
+                        target.playSound(target.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1000, 1f);
+                    } else {
+                        sender.sendMessage(CommonStrings.PLAYER_NOT_ONLINE);
+                    }
                 }
-            } else if (args.length >= 0) {
-                sender.sendMessage(ChatColor.RED + "[kaboom.] Missing arguments! The correct usage of this command is /weakboomspecific <playername>");
             }
         }
-
-        return true;
+ return true;
     }
 }

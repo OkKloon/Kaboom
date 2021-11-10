@@ -1,8 +1,0 @@
-#####################
-#       Kaboom      #
-# by: Power_Button  #
-#####################
-#Put the name of your lobby server as used in your BungeeConfig after server name (put name in '')
-HubName: 'lobby'
-#SendMessage when type /hub (put message in '')
-SentMessage: '&aYou are being sent to the hub...'

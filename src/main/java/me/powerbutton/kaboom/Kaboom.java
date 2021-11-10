@@ -14,18 +14,14 @@ public final class Kaboom extends JavaPlugin {
     @Override
     public void onEnable(){
         // Plugin startup logic
+        instance = this;
         Logger logger = this.getLogger();
         Bukkit.getLogger().info("Kaboom is starting up!");
         this.getCommand("kaboom").setExecutor(new KaboomCommand());
         this.getCommand("weakboom").setExecutor(new Weakboom());
         this.getCommand("gravity").setExecutor(new Gravity());
         this.getCommand("bigkaboom").setExecutor(new Bigkaboom());
-        this.getCommand("kaboomspecific").setExecutor(new KaboomSpecific());
-        this.getCommand("weakboomspecific").setExecutor(new WeakBoomSpecific());
-        this.getCommand("gravityspecific").setExecutor(new GravitySpecific());
-        this.getCommand("bigspecific").setExecutor(new BigKaboomSpecific());
         Bukkit.getLogger().info("Kaboom has started up!");
-
     }
 
     @Override
